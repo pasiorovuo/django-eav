@@ -6,18 +6,7 @@ Introduction
 ------------
 
 
-**This is a fork of https://github.com/mvpdev/django-eav to adapt different things**:
-
-- Make it Python 3 compatible
-- Make it Django 2.0 compatible
-- Remove dependency on Django Site framework
-- Allow a custom ``Entity`` class and custom ``EntityManager`` class (this is particular useful to override the ``get_all_attributes`` method and change the logic to filter a given Entity attributes, like assigning attributes at model instance level).
-- Add ``Decimal`` attribute type (using django ``DecimalValidator``)
-- Add contraint at database level that a ``Value`` for an ``Attribute`` can exist only once for an entity record.
-
-The ``EavConfig`` now includes two new attributes ``entity_class`` and ``entity_manager``, that default to ``Entity`` and ``EntityManager`` respectively.
-
-What is this useful for? Let's say you want to filter the attributes of a given instance based on values, tags or any relational information related to that specific instance. Then, you could specify your custom ``Entity`` class and override the ``get_all_attributes()`` method.
+**This is a fork of https://github.com/sromero84/django-eav to fix a simple makemigrations issue**:
 
 --------
 
