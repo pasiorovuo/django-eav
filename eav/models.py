@@ -423,7 +423,7 @@ class Entity(object):
         to.  Also, store the content type of that instance.
         '''
         self.model = instance
-        self.ct = ContentType.objects.get_for_model(instance)
+        self.ct = None
 
     def __getattr__(self, name):
         '''
@@ -449,6 +449,11 @@ class Entity(object):
                 return None
         return getattr(super(Entity, self), name)
 
+    def _get_model_contenttypes( self ):
+        if self.ct is None:
+            self.ct = ContentType.objects.get_for_model(self.model)
+        return self.ct
+
     def get_all_attributes(self):
         '''
         Return a query set of all :class:`Attribute` objects that can be set
@@ -456,7 +461,7 @@ class Entity(object):
         '''
         return self.model._eav_config_cls.get_attributes().filter(
             models.Q(content_type__isnull=True) |
-            models.Q(content_type=self.ct)).order_by('display_order')
+            models.Q(content_type=self._get_model_contenttypes())).order_by('display_order')
 
     def _hasattr(self, attribute_slug):
         '''
@@ -521,7 +526,7 @@ class Entity(object):
         '''
         Get all set :class:`Value` objects for self.model
         '''
-        return Value.objects.filter(entity_ct=self.ct,
+        return Value.objects.filter(entity_ct=self._get_model_contenttypes(),
                                     entity_id=self.model.pk).select_related()
 
     def get_all_attribute_slugs(self):
