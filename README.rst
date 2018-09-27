@@ -49,7 +49,7 @@ From Github
 ~~~~~~~~~~~
 You can install django-eav directly from github::
 
-    pip install -e git+git://github.com/sromero84/django-eav.git#egg=django-eav
+    pip install -e git+git://github.com/pasiorovuo/django-eav.git#egg=django-eav
 
 Run ``migrate``
 
